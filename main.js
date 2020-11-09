@@ -1,11 +1,11 @@
-'use strict';
+// 'use strict';
 
-const assert = require('assert');
-const readline = require('readline');
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+// let assert = require('assert');
+// let readline = require('readline');
+// let rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout
+// });
 
 // An object that represents the three stacks of Towers of Hanoi; 
   // * each key is an array of Numbers: 
@@ -22,38 +22,63 @@ let stacks = {
   c: []
 };
 
+let startStack = stacks
+
 // Start here. What is this function doing?
-const printStacks = () => {
+let printStacks = () => {
   console.log("a: " + stacks.a);
   console.log("b: " + stacks.b);
   console.log("c: " + stacks.c);
 }
 
 // Next, what do you think this function should do?
-const movePiece = () => {
-  // Your code here
+let movePiece = () => {
+  return stacks[endStack].push(stacks[startStack].pop())
 
 }
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
-const isLegal = () => {
+let isLegal = () => {
   // Your code here
+  let lastStartValue = startStack[startStack.length -1]
+  let lastEndValue = endStack[endStack.length -1]
+  console.log(lastStartValue, lastEndValue)
+  if ((lastStartValue < lastEndValue) || (lastEndValue === undefined)){
+    return true
+  } else {
+    return false
+  }
+};
 
-}
 
 // What is a win in Towers of Hanoi? When should this function run?
-const checkForWin = () => {
+let checkForWin = () => {
   // Your code here
-
-}
+  let checkForWin = () => {
+    if (stacks.b.length == 4) {
+      console.log("You win!");
+      return true;
+    } else {
+      return false;
+    }
+  };
 
 // When is this function called? What should it do with its argument?
-const towersOfHanoi = (startStack, endStack) => {
+let towersOfHanoi = (startStack, endStack) => {
   // Your code here
+  let firstStack = stacks[startStack]
+  let secondStack = stacks[endStack]
+
+if (isLegal(firstStack, secondStack)){
+  movePiece(firstStack, secondStack)
+  } else if(!isLegal(firstStack, secondStack)) {
+    console.log('Not a legal move');
+  }
+};
 
 }
 
-const getPrompt = () => {
+let getPrompt = () => {
   printStacks();
   rl.question('start stack: ', (startStack) => {
     rl.question('end stack: ', (endStack) => {
@@ -63,7 +88,7 @@ const getPrompt = () => {
   });
 }
 
-// Tests
+Tests
 
 if (typeof describe === 'function') {
 
